@@ -1,0 +1,12 @@
+.welcome {
+  text-align: center;
+  font-size: 60px;
+  color: rgb(207, 108, 108);
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
