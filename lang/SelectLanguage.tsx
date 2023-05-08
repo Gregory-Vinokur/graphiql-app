@@ -5,6 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { LOCALES } from '@/lang/locales';
 import { FormattedMessage } from 'react-intl';
+import { Typography } from '@mui/material';
 
 export default function SelectLanguage() {
   const languages = [
@@ -18,11 +19,14 @@ export default function SelectLanguage() {
   };
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }}>
-      <InputLabel id="Language-select-label">
-        <FormattedMessage id="LANGUAGE" />
+    <FormControl size="small" sx={{ mr: 2 }}>
+      <InputLabel sx={{ color: 'lightgray' }} id="Language-select-label">
+        <Typography variant="body2">
+          <FormattedMessage id="LANGUAGE" />
+        </Typography>
       </InputLabel>
       <Select
+        sx={{ color: 'white' }}
         labelId="Language-select-label"
         id="simple-select"
         value={locale}

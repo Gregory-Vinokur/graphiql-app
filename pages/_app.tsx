@@ -5,10 +5,10 @@ import ProviderI18n from '../lang/Provider/ProviderI18n';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <ProviderI18n>
+    <ProviderI18n>
+      <Layout>
         <Component {...pageProps} />
-      </ProviderI18n>
-    </Layout>
+      </Layout>
+    </ProviderI18n>
   );
 }
