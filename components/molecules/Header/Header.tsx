@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { List } from '@mui/material';
 import Link from 'next/link';
+import SelectLanguage from '@/lang/SelectLanguage';
 
 interface ElevationScrollProps {
   children: React.ReactElement;
@@ -56,6 +57,7 @@ const Header = () => {
               </Typography>
             </Link>
             <List>
+              <SelectLanguage />
               <Button
                 variant="contained"
                 sx={{

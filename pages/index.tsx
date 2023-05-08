@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { Box } from '@mui/material';
+import { FormattedMessage } from 'react-intl';
 
 export default function WelcomePage() {
   return (
@@ -23,7 +24,7 @@ export default function WelcomePage() {
           alignItems: 'center',
         }}
       >
-        Welcome Page
+        <FormattedMessage id="WELLCOM_TITEL" />
       </Box>
     </>
   );
