@@ -1,26 +1,8 @@
 import Head from 'next/head';
 import { Box } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
-import { graphQLRequest } from '@/store/api/graphQLRequest';
 
 export default function WelcomePage() {
-  const query = `query GetAll($n: String) {
-    characters(filter: {name: $n}) {
-      info {
-        count
-      }
-      results {
-      name
-      status
-    }
-      
-    }
-  }`;
-
-  const variable = {
-    n: 'Rick',
-  };
-  const { data } = graphQLRequest.useGetResponceQuery({ bodyQuery: query, var: variable });
   return (
     <>
       <Head>
@@ -42,11 +24,6 @@ export default function WelcomePage() {
           alignItems: 'center',
         }}
       >
-        {!!data && (
-          <textarea readOnly value={JSON.stringify(data, null, 2)}>
-            {' '}
-          </textarea>
-        )}
         <FormattedMessage id="WELLCOM_TITEL" />
       </Box>
     </>

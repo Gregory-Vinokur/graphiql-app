@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { graphQLRequest } from './api/graphQLRequest';
+import redactorValueReducer from './reducers/redactorValue';
 
 const rootReducer = combineReducers({
   [graphQLRequest.reducerPath]: graphQLRequest.reducer,
-  // valueRedactor: redactorReducer,
+  redactorValue: redactorValueReducer,
 });
 
 const initStore = (preloadState: RootState | undefined = undefined) => {
