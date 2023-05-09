@@ -2,11 +2,32 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #c87084;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #dfe8f1;
+  border-radius: 20px;
+  border: 2px solid #c87084;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9c4156;
 }
 
 body {
   font-family: 'Open Sans', 'Lato', sans-serif;
-  margin: 0;
+  background-color: #e0e9f2;
+  height: 100%;
+  margin: 0 auto;
+  overflow-x: hidden;
 }
 
 h1,
@@ -16,4 +37,8 @@ h4,
 h5,
 h6 {
   font-family: 'Lato', sans-serif;
+}
+
+a {
+  text-decoration: none;
 }
