@@ -1,13 +1,12 @@
 import Head from 'next/head';
 import { Box } from '@mui/material';
-import { FormattedMessage } from 'react-intl';
 
-export default function WelcomePage() {
+export default function MainPage() {
   return (
     <>
       <Head>
         <title>GraphiQL-app</title>
-        <meta name="description" content="The clone app of GraphiQL playground" />
+        <meta name="description" content="GraphiQL playground" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/graphql.ico" />
       </Head>
@@ -24,7 +23,7 @@ export default function WelcomePage() {
           alignItems: 'center',
         }}
       >
-        <FormattedMessage id="WELLCOM_TITEL" />
+        GraphiQL Page
       </Box>
     </>
   );

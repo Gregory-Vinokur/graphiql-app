@@ -14,7 +14,7 @@ const LoginPage = () => {
         <title>Login</title>
       </Head>
       <Container maxWidth="xs">
-        <Typography variant="h4" align="center" gutterBottom mt={10}>
+        <Typography variant="h4" align="center" gutterBottom>
           Login
         </Typography>
         <form onSubmit={() => console.log('submit')}>

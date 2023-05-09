@@ -47,7 +47,7 @@ const RegisterForm = () => {
       </Head>
       <Container component="main" maxWidth="xs">
         <div css={formContainerStyle}>
-          <Typography component="h1" variant="h5" mt={10} mb={1}>
+          <Typography component="h1" variant="h5" mb={1}>
             Sign up
           </Typography>
           <form css={formStyle} onSubmit={handleSubmit}>
