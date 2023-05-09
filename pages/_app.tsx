@@ -9,12 +9,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const store = initStore();
   return (
     <ProviderI18n>
-
-    <Provider store={store}>   
-    <Layout>
-      <Component {...pageProps} />
-      </Layout>
-    </Provider>
-     </ProviderI18n>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
+    </ProviderI18n>
   );
 }
