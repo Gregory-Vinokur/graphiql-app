@@ -58,29 +58,34 @@ const Header = () => {
             </Link>
             <List>
               <SelectLanguage />
-              <Button
-                variant="contained"
-                sx={{
-                  mr: 2,
-                  bgcolor: '#99419c',
-                  '&:hover': {
-                    bgcolor: '#b151b7',
-                  },
-                }}
-              >
-                Sign In
-              </Button>
-              <Button
-                variant="contained"
-                sx={{
-                  bgcolor: '#605cb1',
-                  '&:hover': {
-                    bgcolor: '#48448d',
-                  },
-                }}
-              >
-                Sign Up
-              </Button>
+              <Link href="/login">
+                <Button
+                  variant="contained"
+                  sx={{
+                    mr: 2,
+                    bgcolor: '#99419c',
+                    '&:hover': {
+                      bgcolor: '#b151b7',
+                    },
+                  }}
+                >
+                  Sign In
+                </Button>
+              </Link>
+              <Link href="/registration">
+                <Button
+                  variant="contained"
+                  sx={{
+                    bgcolor: '#605cb1',
+                    '&:hover': {
+                      bgcolor: '#48448d',
+                    },
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </Link>
+
               <Link href="/graphiql">
                 <Button variant="contained" sx={{ ml: 2 }}>
                   Go to Main Page
