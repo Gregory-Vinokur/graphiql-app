@@ -20,4 +20,5 @@ type AppStore = ReturnType<typeof initStore>;
 type AppDispatch = AppStore['dispatch'];
 
 export type { RootState, AppStore, AppDispatch };
+export const store = initStore();
 export default initStore;
