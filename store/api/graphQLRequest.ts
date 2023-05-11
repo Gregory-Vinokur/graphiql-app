@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const BaseUrl = 'https://rickandmortyapi.graphcdn.app/';
-type IQuery = {
+export type IBodyQuery = {
   bodyQuery: string;
   var?: { [key: string]: unknown };
 };
@@ -19,8 +19,8 @@ const graphQLRequest = createApi({
   reducerPath: 'graphQLRequest',
   baseQuery: fetchBaseQuery({ baseUrl: BaseUrl }),
   endpoints: (builder) => ({
-    getResponce: builder.query<{ [key: string]: unknown }, IQuery>({
-      query: (body: IQuery) => ({
+    getResponce: builder.query<{ [key: string]: unknown }, IBodyQuery>({
+      query: (body: IBodyQuery) => ({
         url: '',
         method: 'POST',
         headers: {
