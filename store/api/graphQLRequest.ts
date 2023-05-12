@@ -48,3 +48,4 @@ const graphQLRequest = createApi({
 });
 
 export { graphQLRequest };
+export const { useGetShemaQuery, useLazyGetResponceQuery } = graphQLRequest;
