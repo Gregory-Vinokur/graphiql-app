@@ -1,12 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IBodyQuery } from '../api/graphQLRequest';
 
 interface IRedactorState {
   queryValue: string;
   variablesValue: string;
   responceValue: string;
-  bodyQuery: IBodyQuery;
 }
 
 const initialState: IRedactorState = {
@@ -23,7 +21,6 @@ const initialState: IRedactorState = {
   }`,
   variablesValue: `{ "n": "Smit" }`,
   responceValue: '',
-  bodyQuery: { bodyQuery: '', var: {} },
 };
 
 const redactorValue = createSlice({
@@ -39,13 +36,9 @@ const redactorValue = createSlice({
     setResponceValue: (state, action: PayloadAction<string>) => {
       state.responceValue = action.payload;
     },
-    setbodyQueryValue: (state, action: PayloadAction<IBodyQuery>) => {
-      state.bodyQuery = action.payload;
-    },
   },
 });
 
-export const { setRedactorValue, setVariablesValue, setResponceValue, setbodyQueryValue } =
-  redactorValue.actions;
+export const { setRedactorValue, setVariablesValue, setResponceValue } = redactorValue.actions;
 
 export default redactorValue.reducer;
