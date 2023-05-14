@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { Box } from '@mui/material';
+import Schema from '@/components/shema/Schema';
 
 export default function MainPage() {
   return (
@@ -23,6 +24,7 @@ export default function MainPage() {
           alignItems: 'center',
         }}
       >
+        <Schema />
         GraphiQL Page
       </Box>
     </>

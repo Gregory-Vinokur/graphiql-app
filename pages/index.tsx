@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { Box } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
+import TempSchema from '@/components/shema/TempSchema';
 
 export default function WelcomePage() {
   return (
@@ -24,6 +25,7 @@ export default function WelcomePage() {
           alignItems: 'center',
         }}
       >
+        <TempSchema />
         <FormattedMessage id="WELLCOM_TITEL" />
       </Box>
     </>
