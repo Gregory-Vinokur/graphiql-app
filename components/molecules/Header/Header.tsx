@@ -8,6 +8,10 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { List } from '@mui/material';
 import Link from 'next/link';
 import SelectLanguage from '@/lang/SelectLanguage';
+import { useAppSelector } from '@/store/hooks/hooks';
+import { Logout } from '@/firebase/firebaseAuth';
+import { useRouter } from 'next/router';
+import { PATHS } from '@/constants/PATHS';
 
 interface ElevationScrollProps {
   children: React.ReactElement;
@@ -32,6 +36,27 @@ function ElevationScroll(props: ElevationScrollProps) {
 }
 
 const Header = () => {
+  const { isLoggedIn } = useAppSelector((state) => state.userReducer);
+  const router = useRouter();
+  const [isVisible, setIsVisible] = React.useState(true);
+
+  React.useEffect(() => {
+    const { asPath } = router;
+
+    if (asPath === PATHS.EDITOR) {
+      setIsVisible(false);
+    }
+
+    if (asPath !== PATHS.EDITOR) {
+      setIsVisible(true);
+    }
+  }, [router]);
+
+  const handleLogOut = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    Logout();
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -58,39 +83,61 @@ const Header = () => {
             </Link>
             <List>
               <SelectLanguage />
-              <Link href="/login">
-                <Button
-                  variant="contained"
-                  sx={{
-                    mr: 2,
-                    bgcolor: '#99419c',
-                    '&:hover': {
-                      bgcolor: '#b151b7',
-                    },
-                  }}
-                >
-                  Sign In
-                </Button>
-              </Link>
-              <Link href="/registration">
-                <Button
-                  variant="contained"
-                  sx={{
-                    bgcolor: '#605cb1',
-                    '&:hover': {
-                      bgcolor: '#48448d',
-                    },
-                  }}
-                >
-                  Sign Up
-                </Button>
-              </Link>
+              {!isLoggedIn && (
+                <>
+                  <Link href="/login">
+                    <Button
+                      variant="contained"
+                      sx={{
+                        mr: 2,
+                        bgcolor: '#99419c',
+                        '&:hover': {
+                          bgcolor: '#b151b7',
+                        },
+                      }}
+                    >
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link href="/registration">
+                    <Button
+                      variant="contained"
+                      sx={{
+                        bgcolor: '#605cb1',
+                        '&:hover': {
+                          bgcolor: '#48448d',
+                        },
+                      }}
+                    >
+                      Sign Up
+                    </Button>
+                  </Link>
+                </>
+              )}
+              {isLoggedIn && (
+                <>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      bgcolor: '#605cb1',
+                      '&:hover': {
+                        bgcolor: '#48448d',
+                      },
+                    }}
+                    onClick={handleLogOut}
+                  >
+                    Sign out
+                  </Button>
 
-              <Link href="/graphiql">
-                <Button variant="contained" sx={{ ml: 2 }}>
-                  Go to Main Page
-                </Button>
-              </Link>
+                  {isVisible && (
+                    <Link href="/graphiql">
+                      <Button variant="contained" sx={{ ml: 2 }}>
+                        Go to Main Page
+                      </Button>
+                    </Link>
+                  )}
+                </>
+              )}
             </List>
           </Toolbar>
         </AppBar>

@@ -4,10 +4,25 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Head from 'next/head';
+import { signIn } from '@/firebase/firebaseAuth';
+import { useAppSelector } from '@/store/hooks/hooks';
+import ProgressBar from '@/components/molecules/ProgressBar/ProgressBar';
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { isLoggedIn } = useAppSelector((state) => state.userReducer);
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    signIn(email, password);
+  };
+
+  if (isLoggedIn) {
+    return <ProgressBar />;
+  }
+
   return (
     <>
       <Head>
@@ -17,7 +32,7 @@ const LoginPage = () => {
         <Typography variant="h4" align="center" gutterBottom>
           Login
         </Typography>
-        <form onSubmit={() => console.log('submit')}>
+        <form onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"

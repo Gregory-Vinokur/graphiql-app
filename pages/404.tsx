@@ -1,14 +1,15 @@
 import Head from 'next/head';
 import { Box } from '@mui/material';
-import { useAppSelector } from '@/store/hooks/hooks';
-import ProgressBar from '@/components/molecules/ProgressBar/ProgressBar';
+import { useRouter } from 'next/router';
+import { PATHS } from '@/constants/PATHS';
+import { useEffect } from 'react';
 
-export default function MainPage() {
-  const { isLoggedIn } = useAppSelector((state) => state.userReducer);
+export default function ErrorPage() {
+  const router = useRouter();
 
-  if (!isLoggedIn) {
-    return <ProgressBar />;
-  }
+  useEffect(() => {
+    router.replace(PATHS.ERROR);
+  }, [router]);
 
   return (
     <>
@@ -31,7 +32,7 @@ export default function MainPage() {
           alignItems: 'center',
         }}
       >
-        GraphiQL Page
+        404 - Page Not Found
       </Box>
     </>
   );

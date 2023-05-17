@@ -6,8 +6,12 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { css } from '@emotion/react';
 import Head from 'next/head';
+import { signUp } from '@/firebase/firebaseAuth';
+import { useAppSelector } from '@/store/hooks/hooks';
+import ProgressBar from '@/components/molecules/ProgressBar/ProgressBar';
 
 const RegisterForm = () => {
+  const { isLoggedIn } = useAppSelector((state) => state.userReducer);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -37,8 +41,12 @@ const RegisterForm = () => {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    console.log(formData);
+    signUp(formData.email, formData.password);
   };
+
+  if (isLoggedIn) {
+    return <ProgressBar />;
+  }
 
   return (
     <>
