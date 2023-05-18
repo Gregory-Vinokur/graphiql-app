@@ -4,7 +4,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 interface IRedactorState {
   queryValue: string;
   variablesValue: string;
-  responceValue: string;
+  responseValue: string;
 }
 
 const initialState: IRedactorState = {
@@ -20,7 +20,7 @@ const initialState: IRedactorState = {
     }
   }`,
   variablesValue: `{ "n": "Smit" }`,
-  responceValue: '',
+  responseValue: '',
 };
 
 const redactorValue = createSlice({
@@ -33,12 +33,12 @@ const redactorValue = createSlice({
     setVariablesValue: (state, action: PayloadAction<string>) => {
       state.variablesValue = action.payload;
     },
-    setResponceValue: (state, action: PayloadAction<string>) => {
-      state.responceValue = action.payload;
+    setResponseValue: (state, action: PayloadAction<string>) => {
+      state.responseValue = action.payload;
     },
   },
 });
 
-export const { setRedactorValue, setVariablesValue, setResponceValue } = redactorValue.actions;
+export const { setRedactorValue, setVariablesValue, setResponseValue } = redactorValue.actions;
 
 export default redactorValue.reducer;
