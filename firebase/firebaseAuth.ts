@@ -6,24 +6,28 @@ import {
   signOut,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  AuthError,
 } from 'firebase/auth';
 
 const auth = getAuth(firebaseApp);
 
-export function signIn(email: string, password: string) {
-  signInWithEmailAndPassword(auth, email, password).catch(function (error) {
+export async function signIn(email: string, password: string) {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (e) {
+    let message = '';
+    const error = e as AuthError;
     if (error.code === 'auth/wrong-password') {
-      console.log('Wrong password entered!');
+      message = 'Wrong password entered!';
     }
     if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-email') {
-      console.log('Wrong user!');
+      message = 'Wrong user!';
     }
     if (error.code === 'auth/too-many-requests') {
-      console.log('Too many requests!');
-    } else {
-      console.error(error.code);
+      message = 'Too many requests! Try again later!';
     }
-  });
+    return message;
+  }
 }
 
 export function Logout() {

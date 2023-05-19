@@ -14,9 +14,12 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const { isLoggedIn } = useAppSelector((state) => state.userReducer);
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-    signIn(email, password);
+    const message = await signIn(email, password);
+    if (message && message !== '') {
+      setError(message);
+    }
   };
 
   if (isLoggedIn) {
@@ -27,6 +30,7 @@ const LoginPage = () => {
     <>
       <Head>
         <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Container maxWidth="xs">
         <Typography variant="h4" align="center" gutterBottom>

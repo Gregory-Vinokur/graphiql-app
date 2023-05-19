@@ -36,8 +36,7 @@ const RegisterForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-      // signUp(values.email, values.password);
+      signUp(values.email, values.password);
     },
   });
 
@@ -65,6 +64,7 @@ const RegisterForm = () => {
     <>
       <Head>
         <title>Registration</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Container component="main" maxWidth="xs">
         <div css={formContainerStyle}>
