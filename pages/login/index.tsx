@@ -30,7 +30,7 @@ const LoginPage = () => {
       </Head>
       <Container maxWidth="xs">
         <Typography variant="h4" align="center" gutterBottom>
-          Login
+          Sign In
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField

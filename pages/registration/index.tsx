@@ -1,4 +1,3 @@
-import React, { useState, ChangeEvent } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -9,13 +8,37 @@ import Head from 'next/head';
 import { signUp } from '@/firebase/firebaseAuth';
 import { useAppSelector } from '@/store/hooks/hooks';
 import ProgressBar from '@/components/molecules/ProgressBar/ProgressBar';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .matches(/^[a-zA-Z0-9._-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/, 'Enter a valid email')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .min(8, 'Password should be of minimum 8 characters length')
+    .matches(
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]+$/,
+      'Password must contain at least one letter, one digit and one special character'
+    )
+    .required('Password is required'),
+});
 
 const RegisterForm = () => {
   const { isLoggedIn } = useAppSelector((state) => state.userReducer);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+      // signUp(values.email, values.password);
+    },
   });
 
   const formContainerStyle = css`
@@ -34,16 +57,6 @@ const RegisterForm = () => {
     margin: 24px 0 16px;
   `;
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-    signUp(formData.email, formData.password);
-  };
-
   if (isLoggedIn) {
     return <ProgressBar />;
   }
@@ -55,42 +68,34 @@ const RegisterForm = () => {
       </Head>
       <Container component="main" maxWidth="xs">
         <div css={formContainerStyle}>
-          <Typography component="h1" variant="h5" mb={1}>
-            Sign up
+          <Typography variant="h4" align="center" gutterBottom>
+            Sign Up
           </Typography>
-          <form css={formStyle} onSubmit={handleSubmit}>
+          <form css={formStyle} onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
-                  label="Email"
+                  id="email"
                   name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
+                  label="Email"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  error={formik.touched.email && Boolean(formik.errors.email)}
+                  helperText={formik.touched.email && formik.errors.email}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
-                  label="Password"
+                  id="password"
                   name="password"
+                  label="Password"
                   type="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} mb={2}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Confirm Password"
-                  name="confirmPassword"
-                  type="password"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  error={formik.touched.password && Boolean(formik.errors.password)}
+                  helperText={formik.touched.password && formik.errors.password}
                 />
               </Grid>
             </Grid>

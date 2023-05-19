@@ -18,6 +18,7 @@ const Layout = ({ children }: LayoutProps) => {
   const dispatch = useAppDispatch();
   const { isLoggedIn } = useAppSelector((state) => state.userReducer);
   const [authChanged, setAuthChanged] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const { asPath } = router;
@@ -30,11 +31,8 @@ const Layout = ({ children }: LayoutProps) => {
       }
     }
 
-    if (!isLoggedIn) {
-      if (asPath === PATHS.EDITOR) {
-        console.log(isLoggedIn);
-        router.replace('/');
-      }
+    if (!isLoggedIn && asPath === PATHS.EDITOR) {
+      router.replace('/');
     }
   }, [authChanged, isLoggedIn, router]);
 
@@ -49,10 +47,8 @@ const Layout = ({ children }: LayoutProps) => {
         });
         setAuthChanged(true);
         dispatch(setUserStatus(true));
-        console.log('User is signed in:', user);
       } else {
         dispatch(setUserStatus(false));
-        console.log('User is signed out');
       }
     });
   }, [dispatch]);
@@ -75,7 +71,11 @@ const Layout = ({ children }: LayoutProps) => {
     };
   }, [dispatch, isLoggedIn]);
 
-  if (!authChanged) {
+  useEffect(() => {
+    setIsLoading(false);
+  }, [authChanged]);
+
+  if (isLoading) {
     return <ProgressBar />;
   }
 
