@@ -8,6 +8,7 @@ import { IBodyQuery, useLazyGetResponseQuery } from '@/store/api/graphQLRequest'
 import { setResponseValue } from '@/store/reducers/redactorValue';
 import { useEffect } from 'react';
 import Variables from '@/components/molecules/Variables/Variables';
+import Schema from '@/components/molecules/Documentation/Schema';
 
 export default function MainPage() {
   const { isLoggedIn } = useAppSelector((state) => state.userReducer);
@@ -72,6 +73,7 @@ export default function MainPage() {
         <Response response={responseValue} />
       </Box>
       <Variables />
+      <Schema />
     </>
   );
 }
