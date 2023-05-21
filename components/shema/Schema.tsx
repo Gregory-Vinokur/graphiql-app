@@ -1,6 +1,10 @@
 import { useGetShemaQuery } from '@/store/api/graphQLRequest';
 import { IntrospectionType } from 'graphql';
 import React, { useState } from 'react';
+import SchemaKindInput from './SchemaKindInput';
+import SchemaKindObject from './SchemaKindObject';
+import SchemaRoot from './SchemaRoot';
+import SchemaHeader from './SchemaHeader';
 
 function Schema() {
   const { data } = useGetShemaQuery();
@@ -28,7 +32,7 @@ function Schema() {
   return (
     <div
       style={{
-        width: '800px',
+        width: '500px',
         maxHeight: '300px',
         padding: '5px',
         border: '1px solid red',
@@ -36,107 +40,20 @@ function Schema() {
         overflowY: 'auto',
       }}
     >
-      {!stack.length && (
-        <div>
-          <p>A GraphQL schema provides a root type for each kind of operation.</p>
-          <p>Root Types</p>
-          <p>
-            <span>query: </span>
-            <a href="#" onClick={(e) => nextPage(e, 'Docs', 'Query')}>
-              Query
-            </a>
-          </p>
-        </div>
-      )}
+      {!stack.length && <SchemaRoot nextPage={nextPage} />}
       {!!stack.length && (
         <div>
-          <p>
-            <a href="#" onClick={prevPage}>
-              {'< '}
-              {stack[stack.length - 1]}
-            </a>
-          </p>
-          <p>{current}</p>
-          {currentObject.kind === 'OBJECT' && <p>Fields</p>}
-          <p>{currentObject.description}</p>
-          {currentObject && (
-            <>
-              {currentObject.fields &&
-                currentObject.fields?.map((el) => (
-                  <p key={el.name}>
-                    {el.name}
-                    {!!el.args.length && (
-                      <>
-                        <span>(</span>
-                        {el.args.map((arg) => (
-                          <p key={arg.name}>
-                            {arg.name}:{' '}
-                            {(arg.type.name || arg.type.ofType?.name) && (
-                              <a
-                                href="#"
-                                onClick={(e) =>
-                                  nextPage(e, current, arg.type.name || arg.type.ofType?.name || '')
-                                }
-                              >
-                                {arg.type.name || arg.type.ofType?.name}
-                              </a>
-                            )}
-                            {arg.type.ofType?.ofType?.ofType.name && (
-                              <a
-                                href="#"
-                                onClick={(e) =>
-                                  nextPage(e, current, arg.type.ofType?.ofType?.ofType.name || '')
-                                }
-                              >
-                                [{arg.type.ofType?.ofType?.ofType?.name}!]
-                              </a>
-                            )}
-                            {!arg.type.name && <span>!</span>}
-                          </p>
-                        ))}
-
-                        <span>)</span>
-                      </>
-                    )}
-                    {(el.type.name || el.type.ofType) && <span>: </span>}
-                    {el.type.name && (
-                      <a href="#" onClick={(e) => nextPage(e, current, el.type.name || '')}>
-                        {el.type.name}
-                      </a>
-                    )}
-                    {el.type.ofType && (
-                      <>
-                        <a
-                          href="#"
-                          onClick={(e) =>
-                            nextPage(
-                              e,
-                              current,
-                              el.type.ofType?.name || el.type.ofType?.ofType?.name || ''
-                            )
-                          }
-                        >
-                          [{el.type.ofType.name || el.type.ofType?.ofType?.name}]
-                        </a>
-                        {el.type.ofType?.ofType && <span>!</span>}
-                      </>
-                    )}
-                    {el.description && <p>{el.description}</p>}
-                  </p>
-                ))}
-              {currentObject.inputFields &&
-                currentObject.inputFields?.map((el) => (
-                  <p key={el.name}>
-                    {el.name}
-                    {': '}
-                    {el.type.name && (
-                      <a href="#" onClick={(e) => nextPage(e, current, el.type.name || '')}>
-                        {el.type.name}
-                      </a>
-                    )}
-                  </p>
-                ))}
-            </>
+          <SchemaHeader
+            element={currentObject}
+            current={current}
+            stack={stack}
+            prevPage={prevPage}
+          />
+          {currentObject && currentObject.kind === 'OBJECT' && (
+            <SchemaKindObject element={currentObject} current={current} nextPage={nextPage} />
+          )}
+          {currentObject.kind === 'INPUT_OBJECT' && (
+            <SchemaKindInput element={currentObject} current={current} nextPage={nextPage} />
           )}
         </div>
       )}
