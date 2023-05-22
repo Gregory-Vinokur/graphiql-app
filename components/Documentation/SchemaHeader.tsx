@@ -6,7 +6,7 @@ interface ISchemaHeader {
   element: IntrospectionType | Record<string, never>;
   current: string;
   stack: string[];
-  prevPage: () => void;
+  prevPage: (e: React.MouseEvent) => void;
 }
 
 function SchemaHeader({ element, current, stack, prevPage }: ISchemaHeader) {

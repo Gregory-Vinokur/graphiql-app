@@ -21,7 +21,8 @@ function Schema() {
     setCurrentObject(types?.find((el) => el.name === next) || {});
   };
 
-  const prevPage = () => {
+  const prevPage = (e: React.MouseEvent) => {
+    e.preventDefault();
     setCurrent(stack[stack.length - 1]);
     setStack((prev) => {
       const newState = [...prev];

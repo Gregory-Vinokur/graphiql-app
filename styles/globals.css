@@ -42,3 +42,11 @@ h6 {
 a {
   text-decoration: none;
 }
+
+.ͼ1 .cm-placeholder {
+  color: orange;
+  display: inline-block;
+  vertical-align: top;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

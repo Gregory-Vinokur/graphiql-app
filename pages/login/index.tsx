@@ -4,20 +4,39 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Head from 'next/head';
+import { signIn } from '@/firebase/firebaseAuth';
+import { useAppSelector } from '@/store/hooks/hooks';
+import ProgressBar from '@/components/ProgressBar/ProgressBar';
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { isLoggedIn } = useAppSelector((state) => state.userReducer);
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
+    event.preventDefault();
+    const message = await signIn(email, password);
+    if (message && message !== '') {
+      setError(message);
+    }
+  };
+
+  if (isLoggedIn) {
+    return <ProgressBar />;
+  }
+
   return (
     <>
       <Head>
         <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Container maxWidth="xs">
         <Typography variant="h4" align="center" gutterBottom>
-          Login
+          Sign In
         </Typography>
-        <form onSubmit={() => console.log('submit')}>
+        <form onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"

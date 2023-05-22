@@ -14,7 +14,7 @@ const graphQLRequest = createApi({
   reducerPath: 'graphQLRequest',
   baseQuery: fetchBaseQuery({ baseUrl: BaseUrl }),
   endpoints: (builder) => ({
-    getResponce: builder.query<{ [key: string]: unknown }, IBodyQuery>({
+    getResponse: builder.query<{ [key: string]: unknown }, IBodyQuery>({
       query: (body: IBodyQuery) => ({
         url: '',
         method: 'POST',
@@ -43,4 +43,4 @@ const graphQLRequest = createApi({
 });
 
 export { graphQLRequest };
-export const { useGetShemaQuery, useLazyGetResponceQuery } = graphQLRequest;
+export const { useGetShemaQuery, useLazyGetResponseQuery } = graphQLRequest;
