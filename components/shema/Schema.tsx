@@ -5,6 +5,7 @@ import SchemaKindInput from './SchemaKindInput';
 import SchemaKindObject from './SchemaKindObject';
 import SchemaRoot from './SchemaRoot';
 import SchemaHeader from './SchemaHeader';
+import { Box } from '@mui/material';
 
 function Schema() {
   const { data } = useGetShemaQuery();
@@ -30,7 +31,8 @@ function Schema() {
     setCurrentObject(types?.find((el) => el.name === stack[stack.length - 1]) || {});
   };
   return (
-    <div
+    <Box
+      color={'black'}
       style={{
         width: '500px',
         maxHeight: '300px',
@@ -57,7 +59,7 @@ function Schema() {
           )}
         </div>
       )}
-    </div>
+    </Box>
   );
 }
 

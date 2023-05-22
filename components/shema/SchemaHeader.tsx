@@ -1,3 +1,4 @@
+import { Link, Typography } from '@mui/material';
 import { IntrospectionType } from 'graphql';
 import React from 'react';
 
@@ -12,14 +13,22 @@ function SchemaHeader({ element, current, stack, prevPage }: ISchemaHeader) {
   return (
     <>
       <p>
-        <a href="#" onClick={prevPage}>
+        <Link href="#" onClick={prevPage}>
           {'< '}
           {stack[stack.length - 1]}
-        </a>
+        </Link>
       </p>
-      <p>{current}</p>
-      {element.kind === 'OBJECT' && <p>Fields</p>}
-      <p>{element.description}</p>
+      <Typography variant="h6" fontWeight={'bold'} mt={1}>
+        {current}
+      </Typography>
+      {element.kind === 'OBJECT' && (
+        <Typography variant="body2" mt={1} mb={1} fontWeight={'bold'}>
+          Fields
+        </Typography>
+      )}
+      <Typography variant="body1" mt={1}>
+        {element.description}
+      </Typography>
     </>
   );
 }

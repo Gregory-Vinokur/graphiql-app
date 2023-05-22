@@ -1,6 +1,7 @@
 import { IntrospectionObjectType } from 'graphql';
 import React from 'react';
 import LinkNextPage from './LinkNextPage';
+import { Typography } from '@mui/material';
 
 interface ISchemaKindObject {
   element: IntrospectionObjectType;
@@ -18,7 +19,10 @@ function SchemaKindObject({ element, current, nextPage }: ISchemaKindObject) {
       {element.fields &&
         element.fields.map((el) => (
           <div key={el.name}>
-            {el.name}
+            <Typography variant="body1" component={'span'} color={'chocolate'}>
+              {el.name}
+            </Typography>
+
             {!!el.args.length && (
               <>
                 <span>(</span>
@@ -30,7 +34,10 @@ function SchemaKindObject({ element, current, nextPage }: ISchemaKindObject) {
                         {'\u00A0\u00A0'}
                       </>
                     )}
-                    {arg.name}:{' '}
+                    <Typography variant="body1" component={'span'} color={'red'}>
+                      {arg.name}:{' '}
+                    </Typography>
+
                     {(arg.type.kind === 'SCALAR' || arg.type.kind === 'INPUT_OBJECT') && (
                       <LinkNextPage current={current} next={arg.type.name} nextPage={nextPage} />
                     )}
@@ -87,7 +94,11 @@ function SchemaKindObject({ element, current, nextPage }: ISchemaKindObject) {
                   <span>]!</span>
                 </>
               )}
-            {el.description && <p>{el.description}</p>}
+            {el.description && (
+              <Typography variant="body1" mt={1} mb={2}>
+                {el.description}
+              </Typography>
+            )}
           </div>
         ))}
     </>
