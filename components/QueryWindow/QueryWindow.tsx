@@ -1,6 +1,6 @@
 import CodeMirror from '@uiw/react-codemirror';
 import { graphql } from 'cm6-graphql';
-import { schema } from '../../../constants/schema';
+import { schema } from '../../constants/schema';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { setRedactorValue } from '@/store/reducers/redactorValue';
 

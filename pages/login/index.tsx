@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Head from 'next/head';
 import { signIn } from '@/firebase/firebaseAuth';
 import { useAppSelector } from '@/store/hooks/hooks';
-import ProgressBar from '@/components/molecules/ProgressBar/ProgressBar';
+import ProgressBar from '@/components/ProgressBar/ProgressBar';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');

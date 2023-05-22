@@ -1,14 +1,13 @@
 import Head from 'next/head';
 import { Box, Button } from '@mui/material';
 import { useAppSelector, useAppDispatch } from '@/store/hooks/hooks';
-import ProgressBar from '@/components/molecules/ProgressBar/ProgressBar';
-import QueryWindow from '@/components/molecules/QueryWindow/QueryWindow';
-import Response from '@/components/molecules/Response/Response';
+import ProgressBar from '@/components/ProgressBar/ProgressBar';
+import QueryWindow from '@/components/QueryWindow/QueryWindow';
+import Response from '@/components/Response/Response';
 import { IBodyQuery, useLazyGetResponseQuery } from '@/store/api/graphQLRequest';
 import { setResponseValue } from '@/store/reducers/redactorValue';
 import { useEffect, useState } from 'react';
-import Variables from '@/components/molecules/Variables/Variables';
-import Schema from '@/components/molecules/Documentation/Schema';
+import Variables from '@/components/Variables/Variables';
 
 interface ResponseError {
   data: {
@@ -85,7 +84,6 @@ export default function MainPage() {
         <Response response={responseValue} message={errorMessage} />
       </Box>
       <Variables />
-      <Schema />
     </>
   );
 }

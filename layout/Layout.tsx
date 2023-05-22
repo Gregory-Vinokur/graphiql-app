@@ -1,13 +1,13 @@
 import { Box } from '@mui/system';
-import Header from '@/components/molecules/Header/Header';
-import Footer from '@/components/molecules/Footer/Footer';
+import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer/Footer';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { checkAuthStatus, Logout } from '@/firebase/firebaseAuth';
 import { PATHS } from '@/constants/PATHS';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { setUserStatus } from '@/store/reducers/userReducer';
-import ProgressBar from '@/components/molecules/ProgressBar/ProgressBar';
+import ProgressBar from '@/components/ProgressBar/ProgressBar';
 
 type LayoutProps = {
   children?: React.ReactNode;

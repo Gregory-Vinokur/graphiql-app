@@ -7,7 +7,7 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import { signUp } from '@/firebase/firebaseAuth';
 import { useAppSelector } from '@/store/hooks/hooks';
-import ProgressBar from '@/components/molecules/ProgressBar/ProgressBar';
+import ProgressBar from '@/components/ProgressBar/ProgressBar';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
