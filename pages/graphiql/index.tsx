@@ -8,6 +8,7 @@ import { IBodyQuery, useLazyGetResponseQuery } from '@/store/api/graphQLRequest'
 import { setResponseValue } from '@/store/reducers/redactorValue';
 import { useEffect, useState } from 'react';
 import Variables from '@/components/Variables/Variables';
+import Schema from '@/components/Documentation/Schema';
 
 interface ResponseError {
   data: {
@@ -84,6 +85,7 @@ export default function MainPage() {
         <Response response={responseValue} message={errorMessage} />
       </Box>
       <Variables />
+      <Schema />
     </>
   );
 }
