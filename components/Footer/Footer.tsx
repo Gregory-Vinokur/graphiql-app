@@ -1,6 +1,6 @@
 import { Box, Container, Link, Typography } from '@mui/material';
-import github from '../../../assets/github.svg';
-import rsLogo from '../../../assets/rs_school_js_white.svg';
+import github from '../../assets/github.svg';
+import rsLogo from '../../assets/rs_school_js_white.svg';
 import { styled } from '@mui/system';
 import SocialLink from './../SocialLink/SocialLink';
 import Image from 'next/image';
