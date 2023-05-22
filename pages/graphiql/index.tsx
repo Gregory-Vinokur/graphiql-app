@@ -6,25 +6,38 @@ import QueryWindow from '@/components/molecules/QueryWindow/QueryWindow';
 import Response from '@/components/molecules/Response/Response';
 import { IBodyQuery, useLazyGetResponseQuery } from '@/store/api/graphQLRequest';
 import { setResponseValue } from '@/store/reducers/redactorValue';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Variables from '@/components/molecules/Variables/Variables';
 import Schema from '@/components/molecules/Documentation/Schema';
 
+interface ResponseError {
+  data: {
+    errors: {
+      message: string;
+    }[];
+  };
+}
+
 export default function MainPage() {
   const { isLoggedIn } = useAppSelector((state) => state.userReducer);
+  const [errorMessage, setErrorMessage] = useState('');
   const disp = useAppDispatch();
   const { queryValue, variablesValue, responseValue } = useAppSelector(
     (store) => store.redactorValue
   );
   const [getResponce, { data }] = useLazyGetResponseQuery();
 
-  const getRes = () => {
+  const getRes = async () => {
     try {
       const bodyQueryValue: IBodyQuery = {
         bodyQuery: queryValue,
         var: JSON.parse(variablesValue),
       };
-      getResponce(bodyQueryValue);
+      const response = await getResponce(bodyQueryValue);
+      if (response.error) {
+        disp(setResponseValue(''));
+        setErrorMessage((response.error as ResponseError).data?.errors[0].message);
+      }
     } catch (e) {
       if (e instanceof Error) {
         disp(setResponseValue(e.message));
@@ -69,7 +82,7 @@ export default function MainPage() {
         >
           Send request
         </Button>
-        <Response response={responseValue} />
+        <Response response={responseValue} message={errorMessage} />
       </Box>
       <Variables />
       <Schema />

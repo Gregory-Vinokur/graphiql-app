@@ -35,7 +35,6 @@ export function Logout() {
     .then(function () {
       localStorage.removeItem('token');
       localStorage.removeItem('remainingTime');
-      console.log('Sign out successful!');
     })
     .catch(function (error: Error) {
       console.error('Sign out error:', error);

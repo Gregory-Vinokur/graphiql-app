@@ -3,9 +3,10 @@ import { graphql } from 'cm6-graphql';
 
 interface ResponseProps {
   response: string;
+  message: string;
 }
 
-const Response = ({ response }: ResponseProps) => {
+const Response = ({ response, message }: ResponseProps) => {
   return (
     <CodeMirror
       value={response}
@@ -13,7 +14,14 @@ const Response = ({ response }: ResponseProps) => {
       theme="dark"
       minHeight="84.1vh"
       minWidth="45vw"
+      maxWidth="45vw"
       maxHeight="84.1vh"
+      readOnly={true}
+      editable={false}
+      placeholder={message || ''}
+      basicSetup={{
+        lineNumbers: false,
+      }}
     />
   );
 };
