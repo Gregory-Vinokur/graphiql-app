@@ -36,7 +36,8 @@ export default function MainPage() {
       const response = await getResponce(bodyQueryValue);
       if (response.error) {
         disp(setResponseValue(''));
-        setErrorMessage((response.error as ResponseError).data?.errors[0].message);
+        const message = (response.error as ResponseError).data?.errors[0].message;
+        setErrorMessage(message);
       }
     } catch (e) {
       if (e instanceof Error) {

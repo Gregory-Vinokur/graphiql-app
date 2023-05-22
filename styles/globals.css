@@ -43,10 +43,8 @@ a {
   text-decoration: none;
 }
 
-.ͼ1 .cm-placeholder {
+.ͼ2h .cm-placeholder {
   color: orange;
   display: inline-block;
   vertical-align: top;
-  white-space: pre-wrap;
-  word-break: break-word;
 }

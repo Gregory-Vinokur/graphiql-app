@@ -1,4 +1,5 @@
 import CodeMirror from '@uiw/react-codemirror';
+import { EditorView } from '@codemirror/view';
 import { graphql } from 'cm6-graphql';
 
 interface ResponseProps {
@@ -10,7 +11,7 @@ const Response = ({ response, message }: ResponseProps) => {
   return (
     <CodeMirror
       value={response}
-      extensions={[graphql()]}
+      extensions={[graphql(), EditorView.lineWrapping]}
       theme="dark"
       minHeight="84.1vh"
       minWidth="45vw"
