@@ -12,6 +12,7 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import { Logout } from '@/firebase/firebaseAuth';
 import { useRouter } from 'next/router';
 import { PATHS } from '@/constants/PATHS';
+import { FormattedMessage } from 'react-intl';
 
 interface ElevationScrollProps {
   children: React.ReactElement;
@@ -96,7 +97,7 @@ const Header = () => {
                         },
                       }}
                     >
-                      Sign In
+                      <FormattedMessage id="SIGN_IN" />
                     </Button>
                   </Link>
                   <Link href="/registration">
@@ -109,7 +110,7 @@ const Header = () => {
                         },
                       }}
                     >
-                      Sign Up
+                      <FormattedMessage id="SIGN_UP" />
                     </Button>
                   </Link>
                 </>
@@ -126,13 +127,13 @@ const Header = () => {
                     }}
                     onClick={handleLogOut}
                   >
-                    Sign out
+                    <FormattedMessage id="SIGN_OUT" />
                   </Button>
 
                   {isVisible && (
                     <Link href="/graphiql">
                       <Button variant="contained" sx={{ ml: 2 }}>
-                        Go to Main Page
+                        <FormattedMessage id="GO_TO_MAIN_PAGE" />
                       </Button>
                     </Link>
                   )}
