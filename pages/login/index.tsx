@@ -7,17 +7,42 @@ import Head from 'next/head';
 import { signIn } from '@/firebase/firebaseAuth';
 import { useAppSelector } from '@/store/hooks/hooks';
 import ProgressBar from '@/components/ProgressBar/ProgressBar';
+import { FormattedMessage, useIntl } from 'react-intl';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const LoginPage = () => {
+  const intl = useIntl();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { isLoggedIn } = useAppSelector((state) => state.userReducer);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-    const message = await signIn(email, password);
-    if (message && message !== '') {
+    const errorCode = await signIn(email, password);
+    let message = '';
+    if (errorCode) {
+      if (errorCode === 'auth/wrong-password') {
+        message = intl.formatMessage({ id: 'AUTH_WRONG_PASSWORD' });
+      }
+      if (errorCode === 'auth/user-not-found') {
+        message = intl.formatMessage({ id: 'AUTH_WRONG_USER' });
+      }
+      if (errorCode === 'auth/invalid-email') {
+        message = intl.formatMessage({ id: 'AUTH_WRONG_EMAIL' });
+      }
+      if (errorCode === 'auth/too-many-requests') {
+        message = intl.formatMessage({ id: 'AUTH_TOO_MANY_REQUESTS' });
+      }
+      if (errorCode === 'auth/missing-password') {
+        message = intl.formatMessage({ id: 'AUTH_MISSING_PASSWORD' });
+      }
       setError(message);
     }
   };
@@ -34,7 +59,7 @@ const LoginPage = () => {
       </Head>
       <Container maxWidth="xs">
         <Typography variant="h4" align="center" gutterBottom>
-          Sign In
+          <FormattedMessage id="SIGN_IN_TITLE" />
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField
@@ -42,7 +67,7 @@ const LoginPage = () => {
             margin="normal"
             fullWidth
             id="email"
-            label="Email Address"
+            label={intl.formatMessage({ id: 'EMAIL_LABEL' })}
             name="email"
             autoComplete="email"
             value={email}
@@ -53,15 +78,24 @@ const LoginPage = () => {
             margin="normal"
             fullWidth
             name="password"
-            label="Password"
-            type="password"
+            label={intl.formatMessage({ id: 'PASSWORD_LABEL' })}
+            type={showPassword ? 'text' : 'password'}
             id="password"
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleClickShowPassword} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <Button type="submit" fullWidth variant="contained" color="primary">
-            Sign In
+            <FormattedMessage id="SIGN_IN" />
           </Button>
           {error && (
             <Typography variant="body1" align="center" color="error">

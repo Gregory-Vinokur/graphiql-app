@@ -11,7 +11,6 @@ const FooterWrap = styled(Box)({
   alignItems: 'center',
   maxWidth: 1200,
   width: '100%',
-  maxHeight: 90,
   margin: '0 auto',
 });
 
@@ -22,16 +21,26 @@ const FooterYear = styled(Box)({
   color: 'white',
 });
 
-const GithubLinks = styled(Box)({
+const GithubLinks = styled(Box)(() => ({
   display: 'flex',
-  gap: 10,
-});
+  gap: '10px',
+  flexDirection: 'row',
+  '@media (max-width: 680px)': {
+    flexDirection: 'column',
+  },
+}));
 
 const Footer = () => {
   return (
     <Box
       component="footer"
-      sx={{ mt: 'auto', mb: 0, bgcolor: '#c87084', p: { xs: '5px 10px', md: '5px 0' } }}
+      sx={{
+        mt: 'auto',
+        mb: 0,
+        bgcolor: '#c87084',
+        width: { xs: '150vw', sm: '100vw' },
+        p: { xs: '5px 10px', md: '5px 0' },
+      }}
     >
       <Container maxWidth="lg">
         <FooterWrap>
@@ -39,8 +48,7 @@ const Footer = () => {
             sx={{
               width: '100%',
               display: 'flex',
-              flexDirection: 'row',
-              gap: { xs: 2, md: 70 },
+              justifyContent: 'space-between',
             }}
           >
             <GithubLinks>

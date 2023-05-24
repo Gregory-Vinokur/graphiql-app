@@ -10,24 +10,31 @@ import { useAppSelector } from '@/store/hooks/hooks';
 import ProgressBar from '@/components/ProgressBar/ProgressBar';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { IMessageID } from '@/lang/en-US';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useState } from 'react';
 
 const validationSchema = yup.object({
   email: yup
     .string()
-    .matches(/^[a-zA-Z0-9._-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/, 'Enter a valid email')
-    .required('Email is required'),
+    .matches(/^[a-zA-Z0-9._-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/, 'ENTER_VALID_EMAIL')
+    .required('EMAIL_IS_REQUIRED'),
   password: yup
     .string()
-    .min(8, 'Password should be of minimum 8 characters length')
-    .matches(
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]+$/,
-      'Password must contain at least one letter, one digit and one special character'
-    )
-    .required('Password is required'),
+    .min(8, 'PASSWORD_MIN_LENGTH')
+    .matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]+$/, 'PASSWORD_MATCH')
+    .required('PASSWORD_IS_REQUIRED'),
 });
 
 const RegisterForm = () => {
   const { isLoggedIn } = useAppSelector((state) => state.userReducer);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const formik = useFormik({
     initialValues: {
@@ -39,6 +46,15 @@ const RegisterForm = () => {
       signUp(values.email, values.password);
     },
   });
+
+  const intl = useIntl();
+
+  function getTranslate(key: IMessageID | undefined) {
+    if (!key) {
+      return '';
+    }
+    return intl.formatMessage({ id: key });
+  }
 
   const formContainerStyle = css`
     margin-top: 64px;
@@ -69,7 +85,7 @@ const RegisterForm = () => {
       <Container component="main" maxWidth="xs">
         <div css={formContainerStyle}>
           <Typography variant="h4" align="center" gutterBottom>
-            Sign Up
+            <FormattedMessage id="SIGN_UP_TITLE" />
           </Typography>
           <form css={formStyle} onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
@@ -78,11 +94,13 @@ const RegisterForm = () => {
                   fullWidth
                   id="email"
                   name="email"
-                  label="Email"
+                  label={intl.formatMessage({ id: 'EMAIL_LABEL' })}
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   error={formik.touched.email && Boolean(formik.errors.email)}
-                  helperText={formik.touched.email && formik.errors.email}
+                  helperText={
+                    formik.touched.email && getTranslate(formik.errors.email as IMessageID)
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -90,12 +108,23 @@ const RegisterForm = () => {
                   fullWidth
                   id="password"
                   name="password"
-                  label="Password"
-                  type="password"
+                  label={intl.formatMessage({ id: 'PASSWORD_LABEL' })}
+                  type={showPassword ? 'text' : 'password'}
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   error={formik.touched.password && Boolean(formik.errors.password)}
-                  helperText={formik.touched.password && formik.errors.password}
+                  helperText={
+                    formik.touched.password && getTranslate(formik.errors.password as IMessageID)
+                  }
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={handleClickShowPassword} edge="end">
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </Grid>
             </Grid>
@@ -106,7 +135,7 @@ const RegisterForm = () => {
               color="primary"
               css={submitButtonStyle}
             >
-              Sign Up
+              <FormattedMessage id="SIGN_UP" />
             </Button>
           </form>
         </div>
