@@ -19,7 +19,7 @@ function SchemaKindObject({ element, current, nextPage }: ISchemaKindObject) {
       {element.fields &&
         element.fields.map((el) => (
           <div key={el.name}>
-            <Typography variant="body1" component={'span'} color={'chocolate'}>
+            <Typography variant="body1" component={'span'} color={'#d19a66'}>
               {el.name}
             </Typography>
 
@@ -34,7 +34,7 @@ function SchemaKindObject({ element, current, nextPage }: ISchemaKindObject) {
                         {'\u00A0\u00A0'}
                       </>
                     )}
-                    <Typography variant="body1" component={'span'} color={'red'}>
+                    <Typography variant="body1" component={'span'} color={'#e06c75'}>
                       {arg.name}:{' '}
                     </Typography>
 

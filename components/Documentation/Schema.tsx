@@ -1,4 +1,3 @@
-import { useGetShemaQuery } from '@/store/api/graphQLRequest';
 import { IntrospectionType } from 'graphql';
 import React, { useState } from 'react';
 import SchemaKindInput from './SchemaKindInput';
@@ -7,9 +6,11 @@ import SchemaRoot from './SchemaRoot';
 import SchemaHeader from './SchemaHeader';
 import { Box } from '@mui/material';
 
-function Schema() {
-  const { data } = useGetShemaQuery();
-  const types = data?.data.__schema.types;
+interface ISchema {
+  types: readonly IntrospectionType[] | undefined;
+}
+
+function Schema({ types }: ISchema) {
   const [stack, setStack] = useState<string[]>([]);
   const [current, setCurrent] = useState<string>('');
   const [currentObject, setCurrentObject] = useState<IntrospectionType | Record<string, never>>({});
@@ -33,12 +34,13 @@ function Schema() {
   };
   return (
     <Box
-      color={'black'}
+      color={'#abb2bf'}
+      bgcolor={'#282c34'}
       style={{
-        width: '500px',
-        maxHeight: '300px',
+        width: '100%',
+        minHeight: '84.1vh',
+        maxHeight: '84.1vh',
         padding: '5px',
-        border: '1px solid red',
         fontSize: '16px',
         overflowY: 'auto',
       }}

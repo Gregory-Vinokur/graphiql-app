@@ -19,7 +19,7 @@ const Variables = () => {
       theme="dark"
       minHeight="20vh"
       maxHeight="30vh"
-      width="30vw"
+      width="100%"
     />
   );
 };

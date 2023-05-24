@@ -14,8 +14,7 @@ const Response = ({ response, message }: ResponseProps) => {
       extensions={[graphql(), EditorView.lineWrapping]}
       theme="dark"
       minHeight="84.1vh"
-      minWidth="45vw"
-      maxWidth="45vw"
+      minWidth="100%"
       maxHeight="84.1vh"
       readOnly={true}
       editable={false}

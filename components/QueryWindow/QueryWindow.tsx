@@ -19,7 +19,7 @@ const QueryWindow = () => {
       extensions={[graphql(schema)]}
       theme="dark"
       minHeight="84.1vh"
-      minWidth="45vw"
+      minWidth="100%"
       maxHeight="84.1vh"
     />
   );
