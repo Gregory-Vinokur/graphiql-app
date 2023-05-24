@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import { List } from '@mui/material';
+import { List, IconButton, useMediaQuery } from '@mui/material';
 import Link from 'next/link';
 import SelectLanguage from '@/lang/SelectLanguage';
 import { useAppSelector } from '@/store/hooks/hooks';
@@ -13,6 +13,8 @@ import { Logout } from '@/firebase/firebaseAuth';
 import { useRouter } from 'next/router';
 import { PATHS } from '@/constants/PATHS';
 import { FormattedMessage } from 'react-intl';
+import MenuIcon from '@mui/icons-material/Menu';
+import BurgerMenu from '../BurgerMenu/BurgerMenu';
 
 interface ElevationScrollProps {
   children: React.ReactElement;
@@ -40,6 +42,8 @@ const Header = () => {
   const { isLoggedIn } = useAppSelector((state) => state.userReducer);
   const router = useRouter();
   const [isVisible, setIsVisible] = React.useState(true);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   React.useEffect(() => {
     const { asPath } = router;
@@ -56,6 +60,14 @@ const Header = () => {
   const handleLogOut = (event: React.SyntheticEvent) => {
     event.preventDefault();
     Logout();
+  };
+
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleMenuClose = () => {
+    setIsMenuOpen(false);
   };
 
   return (
@@ -83,7 +95,7 @@ const Header = () => {
               </Typography>
             </Link>
             <List>
-              <SelectLanguage />
+              {!isMobile && <SelectLanguage />}
               {!isLoggedIn && (
                 <>
                   <Link href="/login">
@@ -95,6 +107,7 @@ const Header = () => {
                         '&:hover': {
                           bgcolor: '#b151b7',
                         },
+                        display: { xs: 'none', sm: 'inline-flex' },
                       }}
                     >
                       <FormattedMessage id="SIGN_IN" />
@@ -108,6 +121,7 @@ const Header = () => {
                         '&:hover': {
                           bgcolor: '#48448d',
                         },
+                        display: { xs: 'none', sm: 'inline-flex' },
                       }}
                     >
                       <FormattedMessage id="SIGN_UP" />
@@ -124,6 +138,7 @@ const Header = () => {
                       '&:hover': {
                         bgcolor: '#48448d',
                       },
+                      display: { xs: 'none', sm: 'inline-flex' },
                     }}
                     onClick={handleLogOut}
                   >
@@ -132,7 +147,10 @@ const Header = () => {
 
                   {isVisible && (
                     <Link href="/graphiql">
-                      <Button variant="contained" sx={{ ml: 2 }}>
+                      <Button
+                        variant="contained"
+                        sx={{ ml: 2, display: { xs: 'none', sm: 'inline-flex' } }}
+                      >
                         <FormattedMessage id="GO_TO_MAIN_PAGE" />
                       </Button>
                     </Link>
@@ -140,10 +158,26 @@ const Header = () => {
                 </>
               )}
             </List>
+            <IconButton
+              color="inherit"
+              aria-label="menu"
+              edge="end"
+              onClick={handleMenuToggle}
+              sx={{ display: { sm: 'none' }, marginRight: '20px' }}
+            >
+              <MenuIcon fontSize="large" />
+            </IconButton>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
       <Toolbar />
+      <BurgerMenu
+        isLoggedIn={isLoggedIn}
+        isMenuOpen={isMenuOpen}
+        isVisible={isVisible}
+        handleMenuClose={handleMenuClose}
+        handleLogOut={handleLogOut}
+      />
     </React.Fragment>
   );
 };

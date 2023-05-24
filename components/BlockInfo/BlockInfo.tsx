@@ -8,11 +8,16 @@ type BlockInfoProps = {
 
 const textBackgroundStyle = css`
   display: flex;
-  flexdirection: row;
+  flex-direction: row;
   padding: 20px;
+  @media (max-width: 600px) {
+    flex-direction: column-reverse;
+    width: 140vw;
+    padding: 64px;
+  }
 `;
 
-const textFiledStyle = css`
+const textFieldStyle = css`
   position: relative;
   width: 110%;
   padding: 20px;
@@ -37,18 +42,33 @@ const titleFieldStyle = css`
   justify-content: center;
   display: flex;
   align-items: center;
+  word-wrap: break-word;
+
+  @media (max-width: 600px) {
+    width: auto;
+    white-space: nowrap;
+    height: 30%;
+
+    & > * {
+      display: block;
+    }
+  }
 `;
 
 const BlockInfo = ({ children, title }: BlockInfoProps) => {
   return (
     <div css={textBackgroundStyle}>
-      <div css={textFiledStyle}>
+      <div css={textFieldStyle}>
         <Typography variant="body1" component="p" sx={{ fontSize: '1.23rem' }}>
           {children}
         </Typography>
       </div>
       <div css={titleFieldStyle}>
-        <Typography variant="h3" component="h3" sx={{ fontWeight: 'bold', fontSize: '2.7rem' }}>
+        <Typography
+          variant="h3"
+          component="h3"
+          sx={{ fontWeight: 'bold', fontSize: { xs: '2.3rem', sm: '2.7rem' } }}
+        >
           {title}
         </Typography>
       </div>

@@ -25,7 +25,7 @@ export default function WelcomePage() {
           alignItems: 'center',
         }}
       >
-        <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
+        <Container maxWidth="lg" sx={{ textAlign: 'center', marginTop: '20px' }}>
           <BlockInfo title={intl.formatMessage({ id: 'ABOUT_US' })}>
             <FormattedMessage id="ABOUT_US_FIRST" />{' '}
             <Link target="_blank" underline="hover" href="https://github.com/Gregory-Vinokur">
