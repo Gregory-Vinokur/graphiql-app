@@ -18,7 +18,7 @@ function schemaKindInput({ element, current, nextPage }: ISchtmaKindInput) {
     <>
       {element.inputFields.map((el) => (
         <Typography key={el.name} mb={0.5}>
-          <Typography variant="body1" component={'span'} color={'chocolate'}>
+          <Typography variant="body1" component={'span'} color={'#d19a66'}>
             {el.name}
             {': '}
           </Typography>

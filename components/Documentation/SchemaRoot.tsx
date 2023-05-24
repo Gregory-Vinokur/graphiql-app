@@ -18,7 +18,7 @@ function SchemaRoot({ nextPage }: ISchemaRoot) {
         Root Types
       </Typography>
       <p>
-        <Typography variant="body1" component={'span'} color={'chocolate'}>
+        <Typography variant="body1" component={'span'} color={'#d19a66'}>
           query:{' '}
         </Typography>
         <Link href="#" onClick={(e) => nextPage(e, 'Docs', 'Query')}>

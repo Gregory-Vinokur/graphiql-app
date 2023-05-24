@@ -1,14 +1,18 @@
 import Head from 'next/head';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import { useAppSelector, useAppDispatch } from '@/store/hooks/hooks';
 import ProgressBar from '@/components/ProgressBar/ProgressBar';
 import QueryWindow from '@/components/QueryWindow/QueryWindow';
 import Response from '@/components/Response/Response';
-import { IBodyQuery, useLazyGetResponseQuery } from '@/store/api/graphQLRequest';
+import { IBodyQuery, useGetShemaQuery, useLazyGetResponseQuery } from '@/store/api/graphQLRequest';
 import { setResponseValue } from '@/store/reducers/redactorValue';
 import { useEffect, useState } from 'react';
 import Variables from '@/components/Variables/Variables';
-import Schema from '@/components/Documentation/Schema';
+import dynamic from 'next/dynamic';
+
+const DynamicSchema = dynamic(() => import('@/components/Documentation/Schema'), {
+  loading: () => <ProgressBar />,
+});
 
 interface ResponseError {
   data: {
@@ -19,6 +23,8 @@ interface ResponseError {
 }
 
 export default function MainPage() {
+  const { data: dataSchema } = useGetShemaQuery();
+  const types = dataSchema?.data.__schema.types;
   const { isLoggedIn } = useAppSelector((state) => state.userReducer);
   const [errorMessage, setErrorMessage] = useState('');
   const disp = useAppDispatch();
@@ -63,30 +69,33 @@ export default function MainPage() {
         <meta name="description" content="GraphiQL playground" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Box
-        sx={{
-          color: 'rgb(207, 108, 108)',
-          maxWidth: 1200,
-          margin: '0 auto',
-          padding: '40px 0',
-          gap: 1,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <QueryWindow />
-        <Button
-          variant="contained"
-          sx={{ width: 'fit-content', alignSelf: 'center', mt: 1 }}
-          onClick={getRes}
-        >
-          Send request
-        </Button>
-        <Response response={responseValue} message={errorMessage} />
-      </Box>
-      <Variables />
-      <Schema />
+      <Grid container spacing={1} sx={{ padding: '40px 5px' }}>
+        {!!dataSchema && (
+          <Grid item xs={12} md={3}>
+            <DynamicSchema types={types} />
+          </Grid>
+        )}
+        <Grid item xs={12} md={!!dataSchema ? 4 : 6}>
+          <Box>
+            <QueryWindow />
+            <p>Variables:</p>
+            <Variables />
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={1}>
+          <Button
+            variant="contained"
+            sx={{ width: 'fit-content', alignSelf: 'center', mt: 1 }}
+            onClick={getRes}
+          >
+            Send request
+          </Button>
+        </Grid>
+
+        <Grid item xs={12} md={!!dataSchema ? 4 : 5}>
+          <Response response={responseValue} message={errorMessage} />
+        </Grid>
+      </Grid>
     </>
   );
 }
