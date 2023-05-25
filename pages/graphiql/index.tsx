@@ -78,7 +78,6 @@ export default function MainPage() {
         <Grid item xs={12} md={!!dataSchema ? 4 : 6}>
           <Box>
             <QueryWindow />
-            <p>Variables:</p>
             <Variables />
           </Box>
         </Grid>
