@@ -37,8 +37,11 @@ export default function MainPage() {
     try {
       const bodyQueryValue: IBodyQuery = {
         bodyQuery: queryValue,
-        var: JSON.parse(variablesValue),
+        var: variablesValue ? JSON.parse(variablesValue) : '{}',
       };
+      if (data) {
+        disp(setResponseValue(JSON.stringify(data, null, 2)));
+      }
       const response = await getResponce(bodyQueryValue);
       if (response.error) {
         disp(setResponseValue(''));
