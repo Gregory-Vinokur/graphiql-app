@@ -1,16 +1,8 @@
 import Head from 'next/head';
 import { Box } from '@mui/material';
-import { useRouter } from 'next/router';
-import { PATHS } from '@/constants/PATHS';
-import { useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 export default function ErrorPage() {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.replace(PATHS.ERROR);
-  }, [router]);
-
   return (
     <>
       <Head>
@@ -32,7 +24,7 @@ export default function ErrorPage() {
           alignItems: 'center',
         }}
       >
-        404 - Page Not Found
+        <FormattedMessage id="PAGE_NOT_FOUND" />
       </Box>
     </>
   );

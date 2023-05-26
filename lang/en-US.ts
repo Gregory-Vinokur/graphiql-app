@@ -46,6 +46,7 @@ const English = {
   VARIABLES: 'Variables',
   HEADERS: 'Headers',
   SEND_REQUEST: 'Send request',
+  PAGE_NOT_FOUND: '404 - Page Not Found',
   LANGUAGE: 'Language',
   ERROR_HEADER: 'Oops, there is an error!',
 };

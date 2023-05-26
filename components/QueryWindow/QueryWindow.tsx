@@ -1,4 +1,5 @@
 import CodeMirror from '@uiw/react-codemirror';
+import { EditorView } from '@codemirror/view';
 import { graphql } from 'cm6-graphql';
 import { schema } from '../../constants/schema';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
@@ -16,7 +17,7 @@ const QueryWindow = () => {
     <CodeMirror
       value={queryValue}
       onChange={onChange}
-      extensions={[graphql(schema)]}
+      extensions={[graphql(schema), EditorView.lineWrapping]}
       theme="dark"
       minHeight="62.1vh"
       minWidth="100%"
