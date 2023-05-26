@@ -16,6 +16,7 @@ import { Tooltip, Typography, useMediaQuery } from '@mui/material';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
 import { FormattedMessage, useIntl } from 'react-intl';
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 
 const DynamicSchema = dynamic(() => import('@/components/Documentation/Schema'), {
   loading: () => <ProgressBar />,
@@ -52,8 +53,11 @@ export default function MainPage() {
     try {
       const bodyQueryValue: IBodyQuery = {
         bodyQuery: queryValue,
-        var: JSON.parse(variablesValue),
+        var: variablesValue ? JSON.parse(variablesValue) : '{}',
       };
+      if (data) {
+        disp(setResponseValue(JSON.stringify(data, null, 2)));
+      }
       const response = await getResponce(bodyQueryValue);
       if (response.error) {
         disp(setResponseValue(''));
@@ -84,50 +88,64 @@ export default function MainPage() {
         <meta name="description" content="GraphiQL playground" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Grid container spacing={1} sx={{ padding: '50px 5px' }}>
-        <Button color="inherit" sx={{ position: 'absolute', top: '76px' }} onClick={handleDocClick}>
-          <Article sx={{ mr: 2, fill: 'grey', ...(open && { fill: 'black' }) }} />
-          <Typography>
-            {!open ? <FormattedMessage id="SHOW_DOCS" /> : <FormattedMessage id="HIDE_DOCS" />}
-          </Typography>
-        </Button>
-        {!!dataSchema && open && (
-          <Grid item xs={12} md={3}>
-            <DynamicSchema types={types} />
+      <ErrorBoundary>
+        <Grid container spacing={1} sx={{ padding: '50px 5px' }}>
+          <Button
+            color="inherit"
+            sx={{ position: 'absolute', top: '76px' }}
+            onClick={handleDocClick}
+          >
+            <Article sx={{ mr: 2, fill: 'grey', ...(open && { fill: 'black' }) }} />
+            <Typography>
+              {!open ? <FormattedMessage id="SHOW_DOCS" /> : <FormattedMessage id="HIDE_DOCS" />}
+            </Typography>
+          </Button>
+          {!!dataSchema && open && (
+            <Grid item xs={12} md={3}>
+              <ErrorBoundary>
+                <DynamicSchema types={types} />
+              </ErrorBoundary>
+            </Grid>
+          )}
+          <Grid item xs={12} md={!!dataSchema ? 4 : 6}>
+            <Box>
+              <ErrorBoundary>
+                <QueryWindow />
+              </ErrorBoundary>
+              <ErrorBoundary>
+                <Variables />
+              </ErrorBoundary>
+            </Box>
           </Grid>
-        )}
-        <Grid item xs={12} md={!!dataSchema ? 4 : 6}>
-          <Box>
-            <QueryWindow />
-            <Variables />
-          </Box>
-        </Grid>
-        <Grid sx={{ display: 'flex', paddingLeft: isMobile ? '45vw' : '8px' }}>
-          <Tooltip title={intl.formatMessage({ id: 'SEND_REQUEST' })}>
-            <Button
-              variant="contained"
-              sx={{ width: 'fit-content', alignSelf: 'center', mt: 1 }}
-              onClick={() => {
-                setIsLoading(true);
-                setTimeout(() => {
-                  setIsLoading(false);
-                }, 500);
-                getRes();
-              }}
-            >
-              {isLoading ? (
-                <PauseCircleFilledIcon fontSize="large" />
-              ) : (
-                <PlayCircleIcon fontSize="large" />
-              )}
-            </Button>
-          </Tooltip>
-        </Grid>
+          <Grid sx={{ display: 'flex', paddingLeft: isMobile ? '45vw' : '8px' }}>
+            <Tooltip title={intl.formatMessage({ id: 'SEND_REQUEST' })}>
+              <Button
+                variant="contained"
+                sx={{ width: 'fit-content', alignSelf: 'center', mt: 1 }}
+                onClick={() => {
+                  setIsLoading(true);
+                  setTimeout(() => {
+                    setIsLoading(false);
+                  }, 500);
+                  getRes();
+                }}
+              >
+                {isLoading ? (
+                  <PauseCircleFilledIcon fontSize="large" />
+                ) : (
+                  <PlayCircleIcon fontSize="large" />
+                )}
+              </Button>
+            </Tooltip>
+          </Grid>
 
-        <Grid item xs={12} md={!!dataSchema ? 4 : 5}>
-          <Response response={responseValue} message={errorMessage} />
+          <Grid item xs={12} md={!!dataSchema ? 4 : 5}>
+            <ErrorBoundary>
+              <Response response={responseValue} message={errorMessage} />
+            </ErrorBoundary>
+          </Grid>
         </Grid>
-      </Grid>
+      </ErrorBoundary>
     </>
   );
 }

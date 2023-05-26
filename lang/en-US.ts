@@ -47,6 +47,7 @@ const English = {
   HEADERS: 'Headers',
   SEND_REQUEST: 'Send request',
   LANGUAGE: 'Language',
+  ERROR_HEADER: 'Oops, there is an error!',
 };
 
 export type IMessageID = keyof typeof English;

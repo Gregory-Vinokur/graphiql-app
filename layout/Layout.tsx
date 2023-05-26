@@ -8,6 +8,7 @@ import { PATHS } from '@/constants/PATHS';
 import { useAppDispatch, useAppSelector } from '@/store/hooks/hooks';
 import { setUserStatus } from '@/store/reducers/userReducer';
 import ProgressBar from '@/components/ProgressBar/ProgressBar';
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 
 type LayoutProps = {
   children?: React.ReactNode;
@@ -26,7 +27,7 @@ const Layout = ({ children }: LayoutProps) => {
     if (!authChanged) return;
 
     if (isLoggedIn) {
-      if (asPath === PATHS.LOGIN || asPath === PATHS.REGISTRATION) {
+      if (asPath === PATHS.SIGN_IN || asPath === PATHS.SIGN_UP) {
         router.replace('/graphiql');
       }
     }
@@ -81,7 +82,10 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <>
-      <Header />
+      <ErrorBoundary>
+        <Header />
+      </ErrorBoundary>
+
       <Box
         sx={{
           display: 'flex',
@@ -92,7 +96,9 @@ const Layout = ({ children }: LayoutProps) => {
       >
         {children}
       </Box>
-      <Footer />
+      <ErrorBoundary>
+        <Footer />
+      </ErrorBoundary>
     </>
   );
 };

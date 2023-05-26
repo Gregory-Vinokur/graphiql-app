@@ -47,6 +47,7 @@ const Russian = {
   HEADERS: 'Заголовки',
   SEND_REQUEST: 'Отправить запрос',
   LANGUAGE: 'Язык',
+  ERROR_HEADER: 'Упс, ошибка!',
 };
 
 export default Russian;
