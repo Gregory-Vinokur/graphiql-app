@@ -42,6 +42,7 @@ const Russian = {
   ABOUT_COURSE_THIRD:
     'Также к выпускникам 2-й ступени RS School прикреплены наставники, которые могут дать несколько советов, исходя из своего практического опыта.',
   LANGUAGE: 'Язык',
+  ERROR_HEADER: 'Упс, ошибка!',
 };
 
 export default Russian;
