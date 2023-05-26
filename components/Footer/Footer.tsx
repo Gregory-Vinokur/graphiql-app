@@ -30,6 +30,16 @@ const GithubLinks = styled(Box)(() => ({
   },
 }));
 
+const FooterContentWrap = styled(Box)(() => ({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'space-between',
+  '@media (max-width: 350px)': {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+}));
+
 const Footer = () => {
   return (
     <Box
@@ -38,19 +48,13 @@ const Footer = () => {
         mt: 'auto',
         mb: 0,
         bgcolor: '#c87084',
-        width: { xs: '150vw', sm: '100vw' },
+        width: '100vw',
         p: { xs: '5px 10px', md: '5px 0' },
       }}
     >
       <Container maxWidth="lg">
         <FooterWrap>
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-          >
+          <FooterContentWrap>
             <GithubLinks>
               <SocialLink link="https://github.com/M0rl0ck" text="SERGEY SERGEEV" source={github} />
               <SocialLink
@@ -72,7 +76,7 @@ const Footer = () => {
                 <Image src={rsLogo} alt="RS School Logo" height="25" />
               </Link>
             </FooterYear>
-          </Box>
+          </FooterContentWrap>
         </FooterWrap>
       </Container>
     </Box>

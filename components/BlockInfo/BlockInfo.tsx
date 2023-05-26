@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import { css } from '@emotion/react';
 
 type BlockInfoProps = {
@@ -12,7 +12,7 @@ const textBackgroundStyle = css`
   padding: 20px;
   @media (max-width: 600px) {
     flex-direction: column-reverse;
-    width: 140vw;
+    width: 96vw;
     padding: 64px;
   }
 `;
@@ -45,7 +45,7 @@ const titleFieldStyle = css`
   word-wrap: break-word;
 
   @media (max-width: 600px) {
-    width: auto;
+    width: 77vw;
     white-space: nowrap;
     height: 30%;
 

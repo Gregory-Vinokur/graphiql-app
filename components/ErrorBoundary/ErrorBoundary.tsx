@@ -13,10 +13,6 @@ class ErrorBoundary extends React.Component<IErrorBoundary> {
   static getDerivedStateFromError(error: Error) {
     return { hasError: true, error: error.message };
   }
-  // componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-  //   // You can use your own error logging service here
-  //   console.log({ error, errorInfo });
-  // }
   render() {
     if (this.state.hasError) {
       return (

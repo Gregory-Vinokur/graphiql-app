@@ -4,7 +4,7 @@ import SchemaKindInput from './SchemaKindInput';
 import SchemaKindObject from './SchemaKindObject';
 import SchemaRoot from './SchemaRoot';
 import SchemaHeader from './SchemaHeader';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 
 interface ISchema {
   types: readonly IntrospectionType[] | undefined;

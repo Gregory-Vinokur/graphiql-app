@@ -80,7 +80,7 @@ const RegisterForm = () => {
   return (
     <>
       <Head>
-        <title>Registration</title>
+        <title>Sign Up</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ErrorBoundary>

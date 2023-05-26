@@ -1,7 +1,10 @@
 import SelectLanguage from '@/lang/SelectLanguage';
-import { List, Drawer, Button } from '@mui/material';
+import List from '@mui/material/List';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { FormattedMessage } from 'react-intl';
+import { PATHS } from '@/constants/PATHS';
 
 type BurgerMenuProps = {
   isLoggedIn: boolean;
@@ -44,7 +47,7 @@ const BurgerMenu = ({
         <SelectLanguage />
         {!isLoggedIn && (
           <>
-            <Link href="/login">
+            <Link href={PATHS.SIGN_IN}>
               <Button
                 variant="contained"
                 sx={{
@@ -58,7 +61,7 @@ const BurgerMenu = ({
                 <FormattedMessage id="SIGN_IN" />
               </Button>
             </Link>
-            <Link href="/registration">
+            <Link href={PATHS.SIGN_UP}>
               <Button
                 variant="contained"
                 sx={{
@@ -89,7 +92,7 @@ const BurgerMenu = ({
             </Button>
 
             {isVisible && (
-              <Link href="/graphiql">
+              <Link href={PATHS.EDITOR}>
                 <Button variant="contained" sx={{ ml: 2 }}>
                   <FormattedMessage id="GO_TO_MAIN_PAGE" />
                 </Button>

@@ -1,6 +1,6 @@
 export enum PATHS {
-  LOGIN = '/login/',
-  REGISTRATION = '/registration/',
+  SIGN_IN = '/sign-in/',
+  SIGN_UP = '/sign-up/',
   EDITOR = '/graphiql/',
   DEFAULT = '/',
   ERROR = '/404',

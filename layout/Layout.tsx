@@ -27,7 +27,7 @@ const Layout = ({ children }: LayoutProps) => {
     if (!authChanged) return;
 
     if (isLoggedIn) {
-      if (asPath === PATHS.LOGIN || asPath === PATHS.REGISTRATION) {
+      if (asPath === PATHS.SIGN_IN || asPath === PATHS.SIGN_UP) {
         router.replace('/graphiql');
       }
     }

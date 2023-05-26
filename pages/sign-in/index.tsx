@@ -55,7 +55,7 @@ const LoginPage = () => {
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>Sign In</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ErrorBoundary>

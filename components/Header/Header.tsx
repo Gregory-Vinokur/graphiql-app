@@ -76,7 +76,7 @@ const Header = () => {
       <ElevationScroll>
         <AppBar>
           <Toolbar sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Link href="/">
+            <Link href={PATHS.DEFAULT}>
               <Typography
                 variant="h6"
                 component="div"
@@ -98,7 +98,7 @@ const Header = () => {
               {!isMobile && <SelectLanguage />}
               {!isLoggedIn && (
                 <>
-                  <Link href="/login">
+                  <Link href={PATHS.SIGN_IN}>
                     <Button
                       variant="contained"
                       sx={{
@@ -113,7 +113,7 @@ const Header = () => {
                       <FormattedMessage id="SIGN_IN" />
                     </Button>
                   </Link>
-                  <Link href="/registration">
+                  <Link href={PATHS.SIGN_UP}>
                     <Button
                       variant="contained"
                       sx={{
@@ -146,7 +146,7 @@ const Header = () => {
                   </Button>
 
                   {isVisible && (
-                    <Link href="/graphiql">
+                    <Link href={PATHS.EDITOR}>
                       <Button
                         variant="contained"
                         sx={{ ml: 2, display: { xs: 'none', sm: 'inline-flex' } }}
