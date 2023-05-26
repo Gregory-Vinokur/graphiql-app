@@ -9,6 +9,7 @@ import { setResponseValue } from '@/store/reducers/redactorValue';
 import { useEffect, useState } from 'react';
 import Variables from '@/components/Variables/Variables';
 import dynamic from 'next/dynamic';
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 
 const DynamicSchema = dynamic(() => import('@/components/Documentation/Schema'), {
   loading: () => <ProgressBar />,
@@ -37,8 +38,11 @@ export default function MainPage() {
     try {
       const bodyQueryValue: IBodyQuery = {
         bodyQuery: queryValue,
-        var: JSON.parse(variablesValue),
+        var: variablesValue ? JSON.parse(variablesValue) : '{}',
       };
+      if (data) {
+        disp(setResponseValue(JSON.stringify(data, null, 2)));
+      }
       const response = await getResponce(bodyQueryValue);
       if (response.error) {
         disp(setResponseValue(''));
@@ -69,33 +73,43 @@ export default function MainPage() {
         <meta name="description" content="GraphiQL playground" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Grid container spacing={1} sx={{ padding: '40px 5px' }}>
-        {!!dataSchema && (
-          <Grid item xs={12} md={3}>
-            <DynamicSchema types={types} />
+      <ErrorBoundary>
+        <Grid container spacing={1} sx={{ padding: '40px 5px' }}>
+          {!!dataSchema && (
+            <Grid item xs={12} md={3}>
+              <ErrorBoundary>
+                <DynamicSchema types={types} />
+              </ErrorBoundary>
+            </Grid>
+          )}
+          <Grid item xs={12} md={!!dataSchema ? 4 : 6}>
+            <Box>
+              <ErrorBoundary>
+                <QueryWindow />
+              </ErrorBoundary>
+              <p>Variables:</p>
+              <ErrorBoundary>
+                <Variables />
+              </ErrorBoundary>
+            </Box>
           </Grid>
-        )}
-        <Grid item xs={12} md={!!dataSchema ? 4 : 6}>
-          <Box>
-            <QueryWindow />
-            <p>Variables:</p>
-            <Variables />
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={1}>
-          <Button
-            variant="contained"
-            sx={{ width: 'fit-content', alignSelf: 'center', mt: 1 }}
-            onClick={getRes}
-          >
-            Send request
-          </Button>
-        </Grid>
+          <Grid item xs={12} md={1}>
+            <Button
+              variant="contained"
+              sx={{ width: 'fit-content', alignSelf: 'center', mt: 1 }}
+              onClick={getRes}
+            >
+              Send request
+            </Button>
+          </Grid>
 
-        <Grid item xs={12} md={!!dataSchema ? 4 : 5}>
-          <Response response={responseValue} message={errorMessage} />
+          <Grid item xs={12} md={!!dataSchema ? 4 : 5}>
+            <ErrorBoundary>
+              <Response response={responseValue} message={errorMessage} />
+            </ErrorBoundary>
+          </Grid>
         </Grid>
-      </Grid>
+      </ErrorBoundary>
     </>
   );
 }

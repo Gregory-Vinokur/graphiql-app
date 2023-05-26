@@ -17,6 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 
 const validationSchema = yup.object({
   email: yup
@@ -82,64 +83,66 @@ const RegisterForm = () => {
         <title>Registration</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Container component="main" maxWidth="xs">
-        <div css={formContainerStyle}>
-          <Typography variant="h4" align="center" gutterBottom>
-            <FormattedMessage id="SIGN_UP_TITLE" />
-          </Typography>
-          <form css={formStyle} onSubmit={formik.handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  id="email"
-                  name="email"
-                  label={intl.formatMessage({ id: 'EMAIL_LABEL' })}
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  error={formik.touched.email && Boolean(formik.errors.email)}
-                  helperText={
-                    formik.touched.email && getTranslate(formik.errors.email as IMessageID)
-                  }
-                />
+      <ErrorBoundary>
+        <Container component="main" maxWidth="xs">
+          <div css={formContainerStyle}>
+            <Typography variant="h4" align="center" gutterBottom>
+              <FormattedMessage id="SIGN_UP_TITLE" />
+            </Typography>
+            <form css={formStyle} onSubmit={formik.handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    id="email"
+                    name="email"
+                    label={intl.formatMessage({ id: 'EMAIL_LABEL' })}
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    error={formik.touched.email && Boolean(formik.errors.email)}
+                    helperText={
+                      formik.touched.email && getTranslate(formik.errors.email as IMessageID)
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    id="password"
+                    name="password"
+                    label={intl.formatMessage({ id: 'PASSWORD_LABEL' })}
+                    type={showPassword ? 'text' : 'password'}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={
+                      formik.touched.password && getTranslate(formik.errors.password as IMessageID)
+                    }
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={handleClickShowPassword} edge="end">
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  id="password"
-                  name="password"
-                  label={intl.formatMessage({ id: 'PASSWORD_LABEL' })}
-                  type={showPassword ? 'text' : 'password'}
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  error={formik.touched.password && Boolean(formik.errors.password)}
-                  helperText={
-                    formik.touched.password && getTranslate(formik.errors.password as IMessageID)
-                  }
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={handleClickShowPassword} edge="end">
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              css={submitButtonStyle}
-            >
-              <FormattedMessage id="SIGN_UP" />
-            </Button>
-          </form>
-        </div>
-      </Container>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                css={submitButtonStyle}
+              >
+                <FormattedMessage id="SIGN_UP" />
+              </Button>
+            </form>
+          </div>
+        </Container>
+      </ErrorBoundary>
     </>
   );
 };

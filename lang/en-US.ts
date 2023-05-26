@@ -42,6 +42,7 @@ const English = {
   ABOUT_COURSE_THIRD:
     'Also graduates of the RS School Stage #2 have assigned to mentors, which can give some advices based on their practical experience.',
   LANGUAGE: 'Language',
+  ERROR_HEADER: 'Oops, there is an error!',
 };
 
 export type IMessageID = keyof typeof English;
