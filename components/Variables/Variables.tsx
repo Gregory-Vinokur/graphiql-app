@@ -7,7 +7,9 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useState } from 'react';
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { FormattedMessage } from 'react-intl';
 
 const Variables = () => {
   const { variablesValue } = useAppSelector((store) => store.redactorValue);
@@ -15,7 +17,6 @@ const Variables = () => {
 
   const onChange = (value: string) => {
     disp(setVariablesValue(value));
-    console.log(variablesValue);
   };
 
   const [open, setOpen] = useState(true);
@@ -39,7 +40,6 @@ const Variables = () => {
     <List
       sx={{
         width: '100%',
-        maxWidth: 440,
         bgcolor: '#c87084',
         paddingBottom: '0px',
         paddingTop: '0px',
@@ -55,15 +55,18 @@ const Variables = () => {
           alignItems: 'center',
         }}
       >
-        {/* <ListItemText primary="Variables" sx={{ color: 'white' }} /> */}
         <ToggleButtonGroup
           value={alignment}
           exclusive
           onChange={handleAlignmentChange}
           aria-label="Platform"
         >
-          <ToggleButton value="Variables">Variables</ToggleButton>
-          <ToggleButton value="Headers">Headers</ToggleButton>
+          <ToggleButton value="Variables">
+            <FormattedMessage id="VARIABLES" />
+          </ToggleButton>
+          <ToggleButton value="Headers">
+            <FormattedMessage id="HEADERS" />
+          </ToggleButton>
         </ToggleButtonGroup>
         {open ? <ExpandLess onClick={handleClick} /> : <ExpandMore onClick={handleClick} />}
       </List>

@@ -41,6 +41,11 @@ const English = {
   ABOUT_COURSE_SECOND: 'There you can learn the fundamental concepts to work with these tools.',
   ABOUT_COURSE_THIRD:
     'Also graduates of the RS School Stage #2 have assigned to mentors, which can give some advices based on their practical experience.',
+  SHOW_DOCS: 'Show docs',
+  HIDE_DOCS: 'Hide docs',
+  VARIABLES: 'Variables',
+  HEADERS: 'Headers',
+  SEND_REQUEST: 'Send request',
   LANGUAGE: 'Language',
 };
 

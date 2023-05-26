@@ -1,5 +1,7 @@
 import SelectLanguage from '@/lang/SelectLanguage';
-import { List, Drawer, Button } from '@mui/material';
+import List from '@mui/material/List';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { FormattedMessage } from 'react-intl';
 
