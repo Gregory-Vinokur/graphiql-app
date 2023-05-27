@@ -89,7 +89,7 @@ export default function MainPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <ErrorBoundary>
-        <Grid container spacing={1} sx={{ padding: '50px 5px' }}>
+        <Grid container spacing={1} justifyContent={'space-between'} sx={{ padding: '50px 5px' }}>
           <Button
             color="inherit"
             sx={{ position: 'absolute', top: '76px' }}
@@ -107,7 +107,7 @@ export default function MainPage() {
               </ErrorBoundary>
             </Grid>
           )}
-          <Grid item xs={12} md={!!dataSchema ? 4 : 6}>
+          <Grid item xs={12} md={!!dataSchema && open ? 4 : 6}>
             <Box>
               <ErrorBoundary>
                 <QueryWindow />
@@ -139,7 +139,7 @@ export default function MainPage() {
             </Tooltip>
           </Grid>
 
-          <Grid item xs={12} md={!!dataSchema ? 4 : 5}>
+          <Grid item xs={12} md={!!dataSchema && open ? 4 : 5}>
             <ErrorBoundary>
               <Response response={responseValue} message={errorMessage} />
             </ErrorBoundary>
