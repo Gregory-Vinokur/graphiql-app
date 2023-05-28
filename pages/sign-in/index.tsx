@@ -18,7 +18,9 @@ const LoginPage = () => {
   const intl = useIntl();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const { isLoggedIn } = useAppSelector((state) => state.userReducer);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -27,24 +29,34 @@ const LoginPage = () => {
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     const errorCode = await signIn(email, password);
-    let message = '';
+    let authError = '';
+    let emailError = '';
+    let passwordError = '';
     if (errorCode) {
       if (errorCode === 'auth/wrong-password') {
-        message = intl.formatMessage({ id: 'AUTH_WRONG_PASSWORD' });
+        passwordError = intl.formatMessage({ id: 'AUTH_WRONG_PASSWORD' });
       }
       if (errorCode === 'auth/user-not-found') {
-        message = intl.formatMessage({ id: 'AUTH_WRONG_USER' });
+        emailError = intl.formatMessage({ id: 'AUTH_WRONG_USER' });
       }
       if (errorCode === 'auth/invalid-email') {
-        message = intl.formatMessage({ id: 'AUTH_WRONG_EMAIL' });
+        emailError = intl.formatMessage({ id: 'AUTH_WRONG_EMAIL' });
       }
       if (errorCode === 'auth/too-many-requests') {
-        message = intl.formatMessage({ id: 'AUTH_TOO_MANY_REQUESTS' });
+        authError = intl.formatMessage({ id: 'AUTH_TOO_MANY_REQUESTS' });
       }
       if (errorCode === 'auth/missing-password') {
-        message = intl.formatMessage({ id: 'AUTH_MISSING_PASSWORD' });
+        passwordError = intl.formatMessage({ id: 'AUTH_MISSING_PASSWORD' });
       }
-      setError(message);
+      if (email.trim() === '') {
+        emailError = intl.formatMessage({ id: 'EMAIL_IS_REQUIRED' });
+      }
+      if (password.trim() === '') {
+        passwordError = intl.formatMessage({ id: 'PASSWORD_IS_REQUIRED' });
+      }
+      setAuthError(authError);
+      setEmailError(emailError);
+      setPasswordError(passwordError);
     }
   };
 
@@ -74,6 +86,8 @@ const LoginPage = () => {
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              error={!!emailError}
+              helperText={emailError}
             />
             <TextField
               variant="outlined"
@@ -86,6 +100,8 @@ const LoginPage = () => {
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              error={!!passwordError}
+              helperText={passwordError}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -99,9 +115,9 @@ const LoginPage = () => {
             <Button type="submit" fullWidth variant="contained" color="primary">
               <FormattedMessage id="SIGN_IN" />
             </Button>
-            {error && (
+            {authError && (
               <Typography variant="body1" align="center" color="error">
-                {error}
+                {authError}
               </Typography>
             )}
           </form>
