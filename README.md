@@ -49,5 +49,6 @@ NEXT_PUBLIC_FIREBASE_APP_ID=
 ### Prepare for production
 `$ npm run build`
 ### App
-![Welcome_page](https://github.com/Gregory-Vinokur/graphiql-app/assets/98179706/e54bfe87-bbee-4da1-905d-5b85587fd530)
-![Main page](https://github.com/Gregory-Vinokur/graphiql-app/assets/98179706/368626c5-d41a-419f-81bf-dac5cb85d231)
+![Welcome_page](https://github.com/Gregory-Vinokur/graphiql-app/assets/98179706/aaffe2f6-8e1b-42be-98ee-7b80b1c1c8e4)
+![Main page](https://github.com/Gregory-Vinokur/graphiql-app/assets/98179706/d935c53b-df39-4a7f-bf86-bd8a4a32d15e)
+
