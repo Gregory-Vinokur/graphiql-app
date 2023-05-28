@@ -14,6 +14,7 @@ function Schema({ types }: ISchema) {
   const [stack, setStack] = useState<string[]>([]);
   const [current, setCurrent] = useState<string>('');
   const [currentObject, setCurrentObject] = useState<IntrospectionType | Record<string, never>>({});
+  const [isError, setIsError] = useState(false);
 
   const nextPage = (e: React.MouseEvent, cur: string, next: string) => {
     e.preventDefault();
@@ -32,6 +33,9 @@ function Schema({ types }: ISchema) {
     });
     setCurrentObject(types?.find((el) => el.name === stack[stack.length - 1]) || {});
   };
+  if (isError) {
+    throw new Error('Test ErrorBoundary');
+  }
   return (
     <Box
       color={'#abb2bf'}
@@ -45,6 +49,13 @@ function Schema({ types }: ISchema) {
         overflowY: 'auto',
       }}
     >
+      <button
+        onClick={() => {
+          setIsError(true);
+        }}
+      >
+        test error
+      </button>
       {!stack.length && <SchemaRoot nextPage={nextPage} />}
       {!!stack.length && (
         <div>
