@@ -43,8 +43,6 @@ a {
   text-decoration: none;
 }
 
-.ͼ1 .cm-placeholder {
-  color: #d19a66;
-  display: inline-block;
-  vertical-align: top;
+.cm-placeholder {
+  color: #d19a66 !important;
 }

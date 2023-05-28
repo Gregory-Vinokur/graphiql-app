@@ -13,6 +13,8 @@ const English = {
   AUTH_WRONG_EMAIL: 'Invalid email!',
   AUTH_TOO_MANY_REQUESTS: 'Too many requests! Try again later!',
   AUTH_MISSING_PASSWORD: 'Enter a password',
+  AUTH_EMAIL_IN_USE: 'Email already in use',
+  SOMETHING_WENT_WRONG: 'Something went wrong. Try again.',
   ENTER_VALID_EMAIL: 'Enter a valid email',
   EMAIL_IS_REQUIRED: 'Email is required',
   PASSWORD_IS_REQUIRED: 'Password is required',

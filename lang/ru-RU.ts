@@ -13,6 +13,8 @@ const Russian = {
   AUTH_WRONG_EMAIL: 'Неправильный адрес электронной почты!',
   AUTH_TOO_MANY_REQUESTS: 'Слишком много попыток. Попробуйте позже!',
   AUTH_MISSING_PASSWORD: 'Введите пароль',
+  AUTH_EMAIL_IN_USE: 'Этот адрес электронной почты уже занят',
+  SOMETHING_WENT_WRONG: 'Что-то пошло не так. Попробуйте ещё раз.',
   ENTER_VALID_EMAIL: 'Введите правильный адрес электронной почты',
   EMAIL_IS_REQUIRED: 'Введите адрес электронной почты',
   PASSWORD_IS_REQUIRED: 'Введите пароль',

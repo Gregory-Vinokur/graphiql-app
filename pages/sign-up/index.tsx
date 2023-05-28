@@ -43,8 +43,15 @@ const RegisterForm = () => {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      signUp(values.email, values.password);
+    onSubmit: async (values) => {
+      const errorCode = await signUp(values.email, values.password);
+      if (errorCode) {
+        if (errorCode === 'auth/email-already-in-use') {
+          formik.errors.email = 'AUTH_EMAIL_IN_USE';
+        } else {
+          formik.errors.email = 'SOMETHING_WENT_WRONG';
+        }
+      }
     },
   });
 

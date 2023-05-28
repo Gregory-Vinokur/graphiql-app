@@ -35,12 +35,11 @@ export function checkAuthStatus(listener: (user: User | null) => void) {
   onAuthStateChanged(auth, (user) => listener(user));
 }
 
-export function signUp(email: string, password: string) {
-  createUserWithEmailAndPassword(auth, email, password).catch(function (error) {
-    if (error.code === 'auth/weak-password') {
-      console.log('Weak password entered!');
-    } else {
-      console.error('Error signing up:', error);
-    }
-  });
+export async function signUp(email: string, password: string) {
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+  } catch (e) {
+    const error = e as AuthError;
+    return error.code;
+  }
 }
